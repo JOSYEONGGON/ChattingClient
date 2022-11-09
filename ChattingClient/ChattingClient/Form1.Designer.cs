@@ -1,6 +1,6 @@
 ﻿namespace ChattingClient
 {
-    partial class Form1
+    partial class FormChat
     {
         /// <summary>
         /// 필수 디자이너 변수입니다.
@@ -28,12 +28,60 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.textBoxLog = new System.Windows.Forms.TextBox();
+            this.textBoxMsg = new System.Windows.Forms.TextBox();
+            this.btnSend = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // textBoxLog
+            // 
+            this.textBoxLog.Location = new System.Drawing.Point(14, 12);
+            this.textBoxLog.Multiline = true;
+            this.textBoxLog.Name = "textBoxLog";
+            this.textBoxLog.ReadOnly = true;
+            this.textBoxLog.Size = new System.Drawing.Size(368, 414);
+            this.textBoxLog.TabIndex = 0;
+            // 
+            // textBoxMsg
+            // 
+            this.textBoxMsg.Location = new System.Drawing.Point(14, 439);
+            this.textBoxMsg.Name = "textBoxMsg";
+            this.textBoxMsg.Size = new System.Drawing.Size(285, 21);
+            this.textBoxMsg.TabIndex = 0;
+            this.textBoxMsg.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxMsg_KeyUp);
+            // 
+            // btnSend
+            // 
+            this.btnSend.Location = new System.Drawing.Point(305, 435);
+            this.btnSend.Name = "btnSend";
+            this.btnSend.Size = new System.Drawing.Size(75, 29);
+            this.btnSend.TabIndex = 1;
+            this.btnSend.Text = "보내기";
+            this.btnSend.UseVisualStyleBackColor = true;
+            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
+            // 
+            // FormChat
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(394, 474);
+            this.Controls.Add(this.btnSend);
+            this.Controls.Add(this.textBoxMsg);
+            this.Controls.Add(this.textBoxLog);
+            this.Name = "FormChat";
+            this.Text = "채팅방";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormChat_FormClosing);
+            this.Load += new System.EventHandler(this.FormChat_Load);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.TextBox textBoxLog;
+        private System.Windows.Forms.TextBox textBoxMsg;
+        private System.Windows.Forms.Button btnSend;
     }
 }
 

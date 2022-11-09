@@ -1,0 +1,7 @@
+E:\GitHub\ChattingClient\ChattingClient\ChattingClient\bin\Debug\ChattingClient.exe
+E:\GitHub\ChattingClient\ChattingClient\ChattingClient\bin\Debug\ChattingClient.pdb
+E:\GitHub\ChattingClient\ChattingClient\ChattingClient\obj\x86\Debug\ChattingClient.FormChat.resources
+E:\GitHub\ChattingClient\ChattingClient\ChattingClient\obj\x86\Debug\ChattingClient.Properties.Resources.resources
+E:\GitHub\ChattingClient\ChattingClient\ChattingClient\obj\x86\Debug\ChattingClient.csproj.GenerateResource.Cache
+E:\GitHub\ChattingClient\ChattingClient\ChattingClient\obj\x86\Debug\ChattingClient.exe
+E:\GitHub\ChattingClient\ChattingClient\ChattingClient\obj\x86\Debug\ChattingClient.pdb
