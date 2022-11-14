@@ -5,3 +5,4 @@ E:\GitHub\ChattingClient\ChattingClient\ChattingClient\obj\x86\Debug\ChattingCli
 E:\GitHub\ChattingClient\ChattingClient\ChattingClient\obj\x86\Debug\ChattingClient.csproj.GenerateResource.Cache
 E:\GitHub\ChattingClient\ChattingClient\ChattingClient\obj\x86\Debug\ChattingClient.exe
 E:\GitHub\ChattingClient\ChattingClient\ChattingClient\obj\x86\Debug\ChattingClient.pdb
+E:\GitHub\ChattingClient\ChattingClient\ChattingClient\obj\x86\Debug\ChattingClient.LoginForm.resources

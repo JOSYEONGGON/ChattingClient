@@ -13,6 +13,7 @@ namespace ChattingClient
 {
     public partial class FormChat : Form
     {
+        ClsUser user = ClsUser.GetInstance();
         TcpClient clientSocket = new TcpClient(); // 소켓
         NetworkStream stream = default(NetworkStream);
         string message = string.Empty;
@@ -38,7 +39,7 @@ namespace ChattingClient
             message = " 채팅 서버에 연결 되었습니다.";
             DisplayText(message);
 
-            byte[] buffer = Encoding.Unicode.GetBytes("NickName$");
+            byte[] buffer = Encoding.Unicode.GetBytes(string.Format("{0}$",user.NickName));
             stream.Write(buffer, 0, buffer.Length);
             stream.Flush();
 

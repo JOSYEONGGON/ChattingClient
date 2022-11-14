@@ -15,7 +15,14 @@ namespace ChattingClient
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormChat());
+
+            LoginForm loginForm = new LoginForm();
+            loginForm.StartPosition = FormStartPosition.CenterParent;
+            if (loginForm.ShowDialog() == DialogResult.OK)
+            {
+                Application.Run(new FormChat());
+            }
+
         }
     }
 }
