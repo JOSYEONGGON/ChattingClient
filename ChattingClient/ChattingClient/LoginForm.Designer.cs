@@ -33,6 +33,7 @@
             this.labelID = new System.Windows.Forms.Label();
             this.labelPW = new System.Windows.Forms.Label();
             this.buttonLogin = new System.Windows.Forms.Button();
+            this.buttonSineUp = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBoxID
@@ -78,11 +79,22 @@
             this.buttonLogin.UseVisualStyleBackColor = true;
             this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
             // 
+            // buttonSineUp
+            // 
+            this.buttonSineUp.Location = new System.Drawing.Point(39, 107);
+            this.buttonSineUp.Name = "buttonSineUp";
+            this.buttonSineUp.Size = new System.Drawing.Size(294, 23);
+            this.buttonSineUp.TabIndex = 3;
+            this.buttonSineUp.Text = "회원 가입";
+            this.buttonSineUp.UseVisualStyleBackColor = true;
+            this.buttonSineUp.Click += new System.EventHandler(this.buttonSineUp_Click);
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(367, 115);
+            this.ClientSize = new System.Drawing.Size(367, 141);
+            this.Controls.Add(this.buttonSineUp);
             this.Controls.Add(this.buttonLogin);
             this.Controls.Add(this.labelPW);
             this.Controls.Add(this.labelID);
@@ -105,5 +117,6 @@
         private System.Windows.Forms.Label labelID;
         private System.Windows.Forms.Label labelPW;
         private System.Windows.Forms.Button buttonLogin;
+        private System.Windows.Forms.Button buttonSineUp;
     }
 }

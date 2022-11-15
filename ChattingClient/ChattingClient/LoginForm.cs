@@ -37,7 +37,10 @@ namespace ChattingClient
                 return;
             }
 
-            DataTable dt = DbConnection.ExcuProcedure(string.Format("proc_LoginCheck '{0}','{1}'", textBoxID.Text.Trim(), textBoxPW.Text.Trim()));
+            DbConnection.AddParam("@UserID",textBoxID.Text.Trim());
+            DbConnection.AddParam("@UserPW",textBoxPW.Text.Trim());
+
+            DataTable dt = DbConnection.ExcuProcedure("proc_LoginCheck").dtSelectInfo;
 
             if (dt != null)
             {
@@ -54,6 +57,12 @@ namespace ChattingClient
                     this.Close();
                 }
             }
+        }
+
+        //회원 가입 
+        private void buttonSineUp_Click(object sender, EventArgs e)
+        {
+
         }
 
       

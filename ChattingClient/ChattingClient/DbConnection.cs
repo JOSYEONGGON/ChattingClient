@@ -8,61 +8,118 @@ using System.Diagnostics;
 
 namespace ChattingClient
 {
-    class DbConnection
+    class DbParameterInfo
     {
-        public DbConnection()
-        {
+        public string sParamName = "";
+        public object objParamData = "";
+        public SqlDbType sqlDbType;
 
+        public DbParameterInfo()
+        {
         }
 
-        static public DataTable ExcuProcedure(string sProcedure)
+        public DbParameterInfo(string sParamName, object objParamData, SqlDbType sqlDbType)
         {
-            DataTable dt = new DataTable();
+            this.sParamName = sParamName;
+            this.objParamData = objParamData;
+            this.sqlDbType = sqlDbType;
+        }
+    }
+
+    class DbReturnInfo
+    {
+        public DataTable dtSelectInfo = null;
+        public int nReturn = 0;
+        public int nOut1 = 0;
+        public string sOut2 = "";
+
+        public DbReturnInfo()
+        {
+            dtSelectInfo = new DataTable();
+        }
+    }
+
+    class DbConnection
+    {
+        static List<DbParameterInfo> lstParamterInfo = new List<DbParameterInfo>();
+
+        public DbConnection()
+        {
+        }
+
+        static public void AddParam(string sParamName,int objParamData)
+        {
+           lstParamterInfo.Add(new DbParameterInfo(sParamName,objParamData,SqlDbType.Int));
+        }
+
+        static public void AddParam(string sParamName, string objParamData)
+        {
+            lstParamterInfo.Add(new DbParameterInfo(sParamName, objParamData, SqlDbType.VarChar));
+        }
+
+        static public DbReturnInfo ExcuProcedure(string sProcName)
+        {
+            DbReturnInfo clsReturnInfo = new DbReturnInfo();
             //접속해주는 친구
-            using (SqlConnection conn = new SqlConnection())
+
+            using (SqlConnection conn = new SqlConnection("Server = DESKTOP-64KK2M7\\SQLEXPRESS; Uid = jsg; Pwd = 1q2w3e!!; database = TestDB;"))
             {
+                conn.Open();
+
                 //쿼리날리는 친구
-                SqlCommand sqlComm = new SqlCommand();
-
-               // SqlDataReader sd;
-               // String SQL = "Select * from TestTable1";
-                try
+                using (SqlCommand sqlComm = new SqlCommand(sProcName,conn))
                 {
-                    //string connectionString = "Server = DESKTOP-64KK2M7\\SQLEXPRESS;"
-                    //                        + "Trusted_Connection=true;"
-                    //                        + "database = TestDB;"
-                    //                        + "User Instance=true;"
-                    //                        + "Connection timeout=30";
+                    try
+                    {
+                        sqlComm.CommandType = CommandType.StoredProcedure;
 
-                    string connectionString = "Server = DESKTOP-64KK2M7\\SQLEXPRESS; Uid = jsg; Pwd = 1q2w3e!!; database = TestDB;";
-                    //접속정보 적용
-                    conn.ConnectionString = connectionString;
-                    //DB 연결
-                    conn.Open();
-                    //쿼리 맵핑
-                   // sqlComm.CommandText = SQL;
-                    //쿼리 날릴 곳 
-                   // sqlComm.Connection = conn;
-                    ////쿼리 날리기
-                    //sd = sqlComm.ExecuteReader();
+                        //OUTPUT 고정 2개
+                        SqlParameter pOutput = new SqlParameter("@Out1", SqlDbType.Int);
+                        pOutput.Direction = ParameterDirection.Output;
+                        sqlComm.Parameters.Add(pOutput);
 
-                    ////한줄 한줄 불러오기
-                    //while (sd.Read())
-                    //{
+                        SqlParameter pOutput2 = new SqlParameter("@Out2", SqlDbType.VarChar);
+                        pOutput2.Direction = ParameterDirection.Output;
+                        pOutput2.Size = 20;
+                        sqlComm.Parameters.Add(pOutput2);
+                        
+                        foreach (DbParameterInfo item in lstParamterInfo)
+                        {
+                            sqlComm.Parameters.Add(item.sParamName, item.sqlDbType).Value = item.objParamData;
+                        }
 
-                    //}
+                        //리턴용 파라미터 지정
+                        SqlParameter pReturn = new SqlParameter();
+                        pReturn.Direction = ParameterDirection.ReturnValue;
+                        sqlComm.Parameters.Add(pReturn);
 
-                    SqlDataAdapter da = new SqlDataAdapter(sProcedure, conn);
-                   
-                    da.Fill(dt);
-                    return dt;
-                }
-                catch (Exception ex)
-                {
-                    Debug.Write(ex.Message);
-                    return dt;
+                        SqlDataAdapter da = new SqlDataAdapter(sqlComm);
+                        da.Fill(clsReturnInfo.dtSelectInfo);
+
+                        clsReturnInfo.nReturn = Convert.ToInt32(pReturn.Value);
+
+                        if (pOutput.Value.ToString() != "")
+                            clsReturnInfo.nOut1 = Convert.ToInt32(pOutput.Value);
+                        if (pOutput2.Value.ToString() != "")
+                            clsReturnInfo.sOut2 = Convert.ToString(pOutput2.Value);
+
+                        return clsReturnInfo;
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.Write(ex.Message);
+                        return clsReturnInfo;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                        conn.Dispose();
+                        lstParamterInfo.Clear();
+                    }
                 }
             }
         }
+
+
     }
 }
