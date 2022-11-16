@@ -62,7 +62,9 @@ namespace ChattingClient
         //회원 가입 
         private void buttonSineUp_Click(object sender, EventArgs e)
         {
-
+            SingUpForm singUpForm = new SingUpForm();
+            singUpForm.StartPosition = FormStartPosition.CenterParent;
+            singUpForm.ShowDialog();
         }
 
       

@@ -11,7 +11,7 @@ namespace ChattingClient
 {
     public partial class SingUpForm : Form
     {
-        private bool bSameCheck = false;
+        private bool m_bSameCheck = false;
 
         public SingUpForm()
         {
@@ -32,10 +32,19 @@ namespace ChattingClient
                 return;
             }
 
+            DbConnection.AddParam("@UserID", textBoxID.Text.Trim());
+            DbReturnInfo retInfo = DbConnection.ExcuProcedure("proc_SameIdCheck");
 
-
-
-            bSameCheck = true;
+            if (retInfo.nReturn > 0)
+            {
+                MessageBox.Show("중복된 아이디 입니다.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("사용가능한 아이디 입니다.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                m_bSameCheck = true;
+                button_SameCheck.Enabled = false;
+            }
         }
 
         //등록
@@ -44,10 +53,11 @@ namespace ChattingClient
             if (textBoxID.Text.Trim().Length <= 0)
             {
                 MessageBox.Show("아이디를 입력 해주세요", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                textBoxID.Focus();
                 return;
             }
 
-            if (!bSameCheck)
+            if (!m_bSameCheck)
             {
                 MessageBox.Show("중복검사를 먼저 해주세요", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -56,18 +66,21 @@ namespace ChattingClient
             if (textBoxPW.Text.Trim().Length <= 0)
             {
                 MessageBox.Show("패스워드를 입력 해주세요", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                textBoxPW.Focus();
                 return;
             }
 
             if (textBoxPW_Check.Text.Trim().Length <= 0)
             {
                 MessageBox.Show("패스워드를 입력 해주세요", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                textBoxPW_Check.Focus();
                 return;
             }
 
             if (textBoxNickName.Text.Trim().Length <= 0)
             {
                 MessageBox.Show("닉네임을 입력 해주세요", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                textBoxNickName.Focus();
                 return;
             }
 
@@ -77,8 +90,23 @@ namespace ChattingClient
                 return;
             }
 
+            DbConnection.AddParam("@UserID",textBoxID.Text.Trim());
+            DbConnection.AddParam("@UserPW",textBoxPW.Text.Trim());
+            DbConnection.AddParam("@NickName",textBoxNickName.Text.Trim());
 
+            DbReturnInfo retInfo = DbConnection.ExcuProcedure("proc_SineUp");
 
+            if (retInfo.nReturn == 1)
+            {
+                MessageBox.Show("등록 완료", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
+        }
+
+        private void textBoxID_TextChanged(object sender, EventArgs e)
+        {
+            m_bSameCheck = false;
+            button_SameCheck.Enabled = true;
         }
 
 

@@ -7,3 +7,4 @@ E:\GitHub\ChattingClient\ChattingClient\ChattingClient\obj\x86\Debug\ChattingCli
 E:\GitHub\ChattingClient\ChattingClient\ChattingClient\obj\x86\Debug\ChattingClient.pdb
 E:\GitHub\ChattingClient\ChattingClient\ChattingClient\obj\x86\Debug\ChattingClient.LoginForm.resources
 E:\GitHub\ChattingClient\ChattingClient\ChattingClient\obj\x86\Debug\ChattingClient.SingUpForm.resources
+E:\GitHub\ChattingClient\ChattingClient\ChattingClient\obj\x86\Debug\ChattingClient.csprojResolveAssemblyReference.cache

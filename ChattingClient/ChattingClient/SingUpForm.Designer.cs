@@ -82,6 +82,7 @@
             this.textBoxID.Name = "textBoxID";
             this.textBoxID.Size = new System.Drawing.Size(194, 21);
             this.textBoxID.TabIndex = 0;
+            this.textBoxID.TextChanged += new System.EventHandler(this.textBoxID_TextChanged);
             // 
             // textBoxPW_Check
             // 
